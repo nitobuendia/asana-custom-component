@@ -18,6 +18,10 @@ This project is a custom component for [Home-Assistant](https://home-assistant.i
 
 - Only tasks assigned to owner of the token and within one workspace can be retrieved.
 
+## Installation
+
+Copy contents of `custom_components/asana/` on this repository onto your `config/custom_components/asana/` on your Hassio installation. To add a new sensor, check "Configuration" sensor.
+
 ## Configuration
 
 ### Schema
