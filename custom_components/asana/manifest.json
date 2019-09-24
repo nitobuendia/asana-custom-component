@@ -1,0 +1,8 @@
+{
+  "domain": "asana",
+  "name": "Asana",
+  "documentation": "https://asana.com/developers/api-reference/tasks",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": []
+}
