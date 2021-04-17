@@ -1,6 +1,7 @@
 {
   "domain": "asana",
   "name": "Asana",
+  "version": "1.0",
   "documentation": "https://asana.com/developers/api-reference/tasks",
   "dependencies": [],
   "codeowners": [],
