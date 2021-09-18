@@ -49,10 +49,11 @@ async def setup(hass, config):
   """No set up required once token is obtained."""
   return True
 
-def setup_platform(hass, config, add_devices, discovery_info=None):
+async def async_setup_platform(
+  hass, config, async_add_entities, discovery_info=None):
   """Adds sensor platform to the list of platforms."""
   setup(hass, config)
-  add_devices([AsanaTaskSensor(config)], True)
+  async_add_entities([AsanaTaskSensor(config, hass)], True)
 
 
 class AsanaTaskApi(object):
@@ -129,8 +130,11 @@ class AsanaTaskApi(object):
 class AsanaTaskSensor(entity.Entity):
   """Representation of an Asana Task sensor."""
 
-  def __init__(self, config):
+  def __init__(self, config, hass):
     """Initialize the sensor."""
+
+    # System internals.
+    self._hass = hass
 
     # Sensor internals.
     self._state_attribute_name = None
@@ -359,3 +363,7 @@ class AsanaTaskSensor(entity.Entity):
   def device_state_attributes(self):
     """Return the sensor attributes."""
     return self._attributes
+
+  # Async methods.
+  async def async_update(self):
+    await self._hass.async_add_job(self.update)
