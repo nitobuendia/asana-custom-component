@@ -60,7 +60,7 @@ class AsanaTaskApi(object):
 
   def __init__(self, token, workspace, since_days_ago=0):
     """Initializes API reader.
-    
+
     Args:
       token: Individual API token.
     """
@@ -70,7 +70,7 @@ class AsanaTaskApi(object):
 
   def _get_since_date(self):
     """Gets since date based on days ago.
-    
+
     Return:
       Current date (YYYY-MM-DD) minus since days ago.
     """
@@ -100,7 +100,7 @@ class AsanaTaskApi(object):
 
   def get_api_data(self):
     """Fetches data for a given Asana endpoint.
-    
+
     Returns:
       Dictionary containing tasks data.
     """
@@ -118,7 +118,7 @@ class AsanaTaskApi(object):
         logging.error('Response not expected.')
         return None
       tasks_data.extend(response_data.get('data', []))
-    
+
       # This will be None unless a next page token is retrieved.
       next_page = response_data.get('next_page')
       api_url = next_page.get('uri') if next_page else None
@@ -256,14 +256,14 @@ class AsanaTaskSensor(entity.Entity):
     if tasks_data is None:
       logging.error('Error fetching Asana API data.')
       return
-  
+
     self._store_task_data(tasks_data)
     self._update_sensor_attributes()
     self._update_sensor_state()
 
   def _store_task_data(self, tasks_data):
     """Stores data from tasks from API in a by-date structure.
-    
+
     Args:
       tasks_data: Lists of tasks from Asana API.
 
@@ -290,7 +290,7 @@ class AsanaTaskSensor(entity.Entity):
             task.get('due_on')[0:10] if task.get('due_on')
             else _ASANA_TASK_DATE_ALL
         )
-      
+
       if task_date not in self._task_data[task_group]:
         self._task_data[task_group][task_date] = []
 
@@ -312,7 +312,7 @@ class AsanaTaskSensor(entity.Entity):
       variable_days = variable_config.get(_ASANA_TASK_DATE_NAME)
       if variable_days == _ASANA_TASK_DATE_ALL:
         variable_date = variable_days
-      else: 
+      else:
         date_difference = datetime.timedelta(days=variable_days)
         today = datetime.date.today()
         variable_date = (
@@ -332,7 +332,7 @@ class AsanaTaskSensor(entity.Entity):
           matching_task_list if variable_type == _ASANA_SENSOR_TYPE_LIST
           else len(matching_task_list)
       )
-  
+
   def _update_sensor_state(self):
     """Updates the state of the sensor.
 
