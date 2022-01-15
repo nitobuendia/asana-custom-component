@@ -360,7 +360,7 @@ class AsanaTaskSensor(entity.Entity):
     return self._state
 
   @property
-  def device_state_attributes(self):
+  def extra_state_attributes(self):
     """Return the sensor attributes."""
     return self._attributes
 
