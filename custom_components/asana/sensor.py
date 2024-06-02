@@ -52,7 +52,7 @@ async def setup(hass, config):
 async def async_setup_platform(
   hass, config, async_add_entities, discovery_info=None):
   """Adds sensor platform to the list of platforms."""
-  setup(hass, config)
+  await setup(hass, config)
   async_add_entities([AsanaTaskSensor(config, hass)], True)
 
 
@@ -366,4 +366,4 @@ class AsanaTaskSensor(entity.Entity):
 
   # Async methods.
   async def async_update(self):
-    await self._hass.async_add_job(self.update)
+    await self._hass.async_add_executor_job(self.update)
